@@ -2,7 +2,25 @@ package algo.mergesort;
 
 public class MergeSort
 {
+	private static int tempArray[];
+	public static void sort(int[] unsortedArray)
+	{
+		tempArray = new int[unsortedArray.length];
+		sort(unsortedArray, 0, unsortedArray.length-1);
+	}
 	
+	public static void sort(int[] unsortedArray, int firstIndex, int lastIndex)
+	{
+		if(firstIndex < lastIndex)
+		{
+			int middleIndex = (firstIndex + lastIndex)/2; // Middle of array
+			sort(unsortedArray, firstIndex, middleIndex); // Split left side of array recursively
+			sort(unsortedArray, middleIndex+1, lastIndex); // Split right side of array recursively
+			mergeInPlace(unsortedArray, firstIndex, middleIndex, lastIndex); // Sort and merge arrays
+		}
+	}
+	
+	/* Previous merge method
 	private static void merge(int[] arrayToSort, int firstIndex, int middleIndex, int lastIndex)
 	{
 		int tempArray[] = new int[lastIndex - firstIndex + 1];
@@ -54,20 +72,40 @@ public class MergeSort
 			arrayToSort[firstIndex + i] = tempArray[i];
 		}
 	}
-	
-	public static void sort(int[] unsortedArray)
+	**/
+	public static void mergeInPlace(int unsortedArray[], int start, int mid, int end)
 	{
-		sort(unsortedArray, 0, unsortedArray.length-1);
-	}
-	
-	public static void sort(int[] unsortedArray, int firstIndex, int lastIndex)
-	{
-		if(firstIndex < lastIndex)
+		int i = start; // Saves starting index of left side of array
+		int j = mid+1; // Saves starting index of right side of array
+		
+		// Copies data from unsorted array to temp array
+		for(int counter = 0; counter <= end;counter++)
 		{
-			int middleIndex = (firstIndex + lastIndex)/2; // Middle of array
-			sort(unsortedArray, firstIndex, middleIndex); // Split left side of array recursively
-			sort(unsortedArray, middleIndex+1, lastIndex); // Split right side of array recursively
-			merge(unsortedArray, firstIndex, middleIndex, lastIndex); // Sort and merge arrays
+			tempArray[counter] = unsortedArray[counter];
+		}
+		
+		for(int counter = start; counter <= end;counter++)
+		{
+			if(i > mid)
+			{
+				unsortedArray[counter] = tempArray[j];
+				j++;
+			} 
+			else if(j > end)
+			{
+				unsortedArray[counter] = tempArray[i];
+				i++;
+			}
+			else if(tempArray[j] < tempArray[i])
+			{
+				unsortedArray[counter] = tempArray[j];
+				j++;
+			}
+			else
+			{
+				unsortedArray[counter] = tempArray[i];
+				i++;
+			}
 		}
 	}
 	

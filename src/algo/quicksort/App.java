@@ -1,4 +1,6 @@
-package algo.mergesort;
+package algo.quicksort;
+
+import algo.mergesort.MergeSort;
 
 public class App
 {
@@ -7,10 +9,8 @@ public class App
 	{
 		int[] inputArray = { 9,7,3,1,6,3,2,6,8,9,2,3,0};
 		display(inputArray);
-		MergeSort.sort(inputArray);
+		QuickSort.sort(inputArray);
 		display(inputArray);
-		
-		
 
 	}
 	
@@ -22,5 +22,7 @@ public class App
 		}
 		System.out.println();
 	}
+	
+	
 
 }
